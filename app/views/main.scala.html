@@ -1,0 +1,36 @@
+@*
+* This template is called from the `index` template. This template
+* handles the rendering of the page header and body tags. It takes
+* two arguments, a `String` for the title of the page and an `Html`
+* object to insert into the body of the page.
+*@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        @* Here's where we render the page title `String`. *@
+    <title>@title</title>
+
+    <style> /* copied from bootstrap-starter template */
+    body { padding-top: 50px; }
+    .help-inline  { color:#953333!important; }
+    input:out-of-range { border:2px solid red; }
+        </style>
+
+    <link rel="stylesheet" media="screen" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="starter-template">
+                <h1>@title</h1>
+                <div class="lead">
+                @content
+                </div>
+            </div>
+        </div><!-- /.container -->
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    </body>
+</html>
