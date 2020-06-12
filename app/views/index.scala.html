@@ -1,4 +1,43 @@
 @(tasks: List[Task], taskForm: Form[models.Task])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+        $( function() {
+            $( "#target" ).datepicker();
+        } );
+</script>
+<style>
+        .Input {
+            border: none;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 8px;
+            resize: vertical;
+            float: left;
+
+        }
+        .Input:hover {
+            box-shadow:  0px 4px 6px 0px rgba(0,0,0,0.4);
+            opacity: 0.8;
+        }
+        .InputDelete {
+            background-color: #ff6347;
+
+        }
+        .InputAdd {
+            background-color: #339933;
+        }
+
+        .InputEdit{
+            background-color: #3366ff;
+
+        }
+</style>
+
 
     @import helper._
 
@@ -8,10 +47,11 @@
 
         <table class="table">
             <thead>
-                <tr>
+                <tr style="background: steelblue;">
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Comments</th>
+                    <th scope="col">Target Date</th>
                     <th scope="col">Completed</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -22,13 +62,15 @@
                     <td>@task.id</td>
                     <td>@task.name</td>
                     <td>@task.comments</td>
+                    <td>@task.target</td>
                     <td>@task.completed</td>
                     <td>
                         @form(helper.CSRF(routes.TaskController.edit(task.id.getOrElse(0)))) {
-                            <input type="submit" value="Edit">
+                            <input type="submit"  value="Edit" class="Input InputEdit">
                         }
+
                         @form(helper.CSRF(routes.TaskController.delete(task.id.getOrElse(0)))) {
-                            <input type="submit" value="Delete">
+                            <input type="submit" value="Delete" class="Input InputDelete">
                             }
                     </td>
                 </tr>
@@ -41,8 +83,9 @@
         @form(helper.CSRF(routes.TaskController.create)) {
             @inputText(taskForm("name"), '_label -> "Task Name")
             @inputText(taskForm("comments"), '_label -> "Comments")
+            <input type="text" id="target" readonly placeholder="Select Target Date" name="target">
             @checkbox(taskForm("completed"), '_label -> "Completed", '_help -> "")
-            <input type="submit" value="Create">
+            <input type="submit" value="Create" class="Input InputAdd">
         }
 
     }

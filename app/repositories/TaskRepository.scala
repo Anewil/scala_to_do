@@ -15,8 +15,9 @@ class TaskRepository @Inject()(database: Database)(implicit ec: ExecutionContext
     get[Option[Long]]("id") ~
       get[String]("name") ~
       get[String]("comments") ~
+    get[String]("target") ~
       get[Int]("completed") map {
-      case id ~ name ~ comments ~ completed => Task(id, name, comments, completed == 1)
+      case id ~ name ~ comments ~ target ~ completed => Task(id, name, comments,target, completed == 1)
     }
   }
 
@@ -36,8 +37,8 @@ class TaskRepository @Inject()(database: Database)(implicit ec: ExecutionContext
   def create(task: Task) {
     DB.withConnection { implicit c =>
       SQL("""
-        insert into task (name, comments, completed) values (
-          {name}, {comments}, {completed}
+        insert into task (name, comments, target, completed) values (
+          {name}, {comments},{target}, {completed}
         )
         """).bind(task).executeInsert()
     }
@@ -46,7 +47,7 @@ class TaskRepository @Inject()(database: Database)(implicit ec: ExecutionContext
   def update(id: Long, task: Task) {
     DB.withConnection { implicit c =>
       SQL("""
-        UPDATE task SET name={name}, comments={comments}, completed={completed}
+        UPDATE task SET name={name}, comments={comments},target={target}, completed={completed}
         WHERE id = {id}
         """).bind(task.copy(id = Some(id))).executeUpdate()
     }

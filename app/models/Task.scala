@@ -8,6 +8,7 @@ case class Task(
                  id: Option[Long] = None,
                  name: String,
                  comments: String,
+                 target: String,
                  completed: Boolean)
 
 object Task {
@@ -22,6 +23,7 @@ object Task {
         "id" -> task.id,
         "name" -> task.name,
         "comments" -> task.comments,
+        "target" -> task.target,
         "completed" -> task.completed
       )
     }

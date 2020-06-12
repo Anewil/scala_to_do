@@ -24,6 +24,7 @@ class TaskController @Inject()(taskService: TaskRepository, val cc: ControllerCo
       "id" -> ignored(None: Option[Long]),
       "name" -> nonEmptyText,
       "comments" -> text,
+      "target" -> text,
       "completed" -> boolean
     )(Task.apply)(Task.unapply)
   )
