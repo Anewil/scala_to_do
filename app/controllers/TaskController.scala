@@ -9,10 +9,6 @@ import play.api.data.Forms._
 import play.api.i18n.I18nSupport
 import models.Task
 import repositories.TaskRepository
-/**
- * This controller creates an `Action` to handle HTTP requests to the
- * application's Task page.
- */
 
 @Singleton
 class TaskController @Inject()(taskService: TaskRepository, val cc: ControllerComponents) extends AbstractController(cc) with I18nSupport {
